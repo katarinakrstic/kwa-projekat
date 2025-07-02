@@ -1,0 +1,43 @@
+<mat-card class="auth-card">
+    <mat-card-header>
+        <h1>Registracija</h1>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-form-field class="full-width">
+            <mat-label>Email</mat-label>
+            <input type="email" matInput placeholder="Upišite Vašu email adresu..." [(ngModel)]="email">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <mat-label>Lozinka</mat-label>
+            <input type="password" matInput placeholder="Upišite Vašu lozinku..." [(ngModel)]="password">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <mat-label>Ponovljena lozinka</mat-label>
+            <input type="password" matInput placeholder="Upišite ponovo Vašu lozinku..." [(ngModel)]="repeatPassword">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <mat-label>Ime</mat-label>
+            <input type="text" matInput placeholder="Upišite Vaše ime..." [(ngModel)]="firstName">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <mat-label>Prezime</mat-label>
+            <input type="text" matInput placeholder="Upišite Vaše prezime..." [(ngModel)]="lastName">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <mat-label>Telefon</mat-label>
+            <input type="tel" matInput placeholder="Upišite Vaš broj telefona..." [(ngModel)]="phone">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <mat-label>Adresa</mat-label>
+            <input type="text" matInput placeholder="Upišite Vašu adresu..." [(ngModel)]="address">
+        </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions>
+        <button type="button" mat-button (click)="doSignup()">
+            <i class="fa-solid fa-right-to-bracket"></i> &nbsp;Registruj se
+        </button>
+        <a mat-button routerLink="/login">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> &nbsp;Imam nalog. Prijavi se
+        </a>
+    </mat-card-actions>
+</mat-card>

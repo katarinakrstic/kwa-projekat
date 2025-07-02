@@ -1,0 +1,116 @@
+<div class="wrapper" *ngIf="user">
+    <mat-card class="user-card" appearance="outlined">
+        <mat-card-header>
+            <img mat-card-avatar class="example-header-image" [src]="['https://ui-avatars.com/api/?name='+user.email]">
+            <mat-card-title>{{user.firstName}} {{user.lastName}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="user-card-content">
+            <mat-accordion multi>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <i class="fa-solid fa-key"></i> &nbsp;&nbsp;Promeni lozinku
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-form-field class="full-width">
+                        <mat-label>Stara lozinka</mat-label>
+                        <input matInput type="password" [(ngModel)]="oldPasswordValue" />
+                    </mat-form-field>
+                    <mat-form-field class="full-width">
+                        <mat-label>Nova lozinka</mat-label>
+                        <input matInput type="password" [(ngModel)]="newPasswordValue" />
+                    </mat-form-field>
+                    <mat-form-field class="full-width">
+                        <mat-label>Ponovi novu lozinku</mat-label>
+                        <input matInput type="password" [(ngModel)]="repeatPasswordValue" />
+                    </mat-form-field>
+                    <button mat-button (click)="doChangePassword()">
+                        <i class="fa-solid fa-paper-plane"></i> &nbsp;&nbsp;Potvrdi
+                    </button>
+                </mat-expansion-panel>
+                <mat-expansion-panel *ngIf="userCopy">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <i class="fa-solid fa-user-tag"></i> &nbsp;&nbsp;Uredi profil
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-form-field class="full-width">
+                        <mat-label>Email</mat-label>
+                        <input matInput type="email" [(ngModel)]="userCopy.email" disabled />
+                    </mat-form-field>
+                    <mat-form-field class="full-width">
+                        <mat-label>Ime</mat-label>
+                        <input matInput type="text" [(ngModel)]="userCopy.firstName" />
+                    </mat-form-field>
+                    <mat-form-field class="full-width">
+                        <mat-label>Prezime</mat-label>
+                        <input matInput type="text" [(ngModel)]="userCopy.lastName" />
+                    </mat-form-field>
+                    <mat-form-field class="full-width">
+                        <mat-label>Telefon</mat-label>
+                        <input matInput type="tel" [(ngModel)]="userCopy.phone" />
+                    </mat-form-field>
+                    <mat-form-field class="full-width">
+                        <mat-label>Adresa</mat-label>
+                        <input matInput type="text" [(ngModel)]="userCopy.address" />
+                    </mat-form-field>
+                    <button mat-button (click)="doUpdateUser()">
+                        <i class="fa-solid fa-paper-plane"></i> &nbsp;&nbsp;Ažuriraj profil
+                    </button>
+                </mat-expansion-panel>
+            </mat-accordion>
+            <div class="reservation-list" *ngIf="reservations.length">
+                <h1>Vaše rezervacije</h1>
+                <mat-card *ngFor="let r of reservations" class="reservation-item">
+                    <h2><i class="fa-solid fa-film"></i> &nbsp;{{r.movieTitle}}</h2>
+                    <mat-card-content>
+                        <p>Datum projekcije: {{r.date}}</p>
+                        <p>Vreme projekcije: {{r.time}}</p>
+                        <p>Tip projekcije: {{r.type}}</p>
+                        <p>Broj karata: {{r.numberOfTickets}}</p>
+                        <p>Cena po karti: {{r.pricePerTicket}} dinara</p>
+                        <p>Ukupno: {{r.totalPrice}} dinara</p>
+
+                        <h4>STATUS: {{r.status}}</h4>
+
+                        <div *ngIf="r.status === 'REZERVISANO'">
+                            <button mat-button (click)="changeStatus(r, 'GLEDANO')">
+                                GLEDANO
+                            </button>
+                            <button mat-button (click)="changeStatus(r, 'OTKAZANO')">
+                                OTKAŽI REZERVACIJU
+                            </button>
+                        </div>
+
+                        <div *ngIf="r.status === 'GLEDANO'">
+                            <ng-container *ngIf="!r.rating">
+                                <button mat-button (click)="rateReservation(r, 'SVIĐA MI SE')">
+                                    <i class="fa-solid fa-thumbs-up"></i> SVIĐA MI SE
+                                </button>
+                                <button mat-button (click)="rateReservation(r, 'NE SVIĐA MI SE')">
+                                    <i class="fa-solid fa-thumbs-down"></i> NE SVIĐA MI SE
+                                </button>
+                            </ng-container>
+                            <ng-container *ngIf="r.rating">
+                                <h4>
+                                    OCENA: &nbsp;
+                                    <i *ngIf="r.rating === 'SVIĐA MI SE'" class="fa-solid fa-thumbs-up"></i>
+                                    <i *ngIf="r.rating === 'NE SVIĐA MI SE'" class="fa-solid fa-thumbs-down"></i> &nbsp;
+                                    {{ r.rating === 'SVIĐA MI SE' ? ' SVIĐA MI SE' : ' NE SVIĐA MI SE' }}
+                                </h4>
+                            </ng-container>
+                            <button mat-button (click)="deleteReservation(r)">
+                                OBRIŠI REZERVACIJU
+                            </button>
+                        </div>
+                        <div *ngIf="r.status === 'OTKAZANO'">
+                            <button mat-button (click)="deleteReservation(r)">
+                                OBRIŠI REZERVACIJU
+                            </button>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

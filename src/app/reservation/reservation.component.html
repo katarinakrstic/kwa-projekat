@@ -1,0 +1,31 @@
+<mat-card class="reservation-card">
+  <h1>Rezervacija karata</h1>
+  <mat-card-content>
+    <h2><i class="fa-solid fa-film"></i> &nbsp;{{title}}</h2>
+    <p><i class="fa-regular fa-calendar"></i> &nbsp;Datum projekcije: {{date}}</p>
+    <p><i class="fa-regular fa-clock"> &nbsp;</i>Vreme projekcije: {{time}}</p>
+
+    <mat-form-field appearance="outline" class="reservation-input">
+      <mat-label>Tip projekcije</mat-label>
+      <mat-select [(ngModel)]="selectedType">
+        <mat-option [value]="'2D'">2D - 500 dinara</mat-option>
+        <mat-option [value]="'3D'">3D - 700 dinara</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="reservation-input">
+      <mat-label>Broj karata</mat-label>
+      <input matInput type="number" [(ngModel)]="numberOfTickets" min="1">
+    </mat-form-field>
+
+    <p *ngIf="selectedType">Cena po karti: &nbsp;{{pricePerTicket}} dinara</p>
+    <p *ngIf="selectedType">Ukupno: &nbsp;{{totalPrice}} dinara</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <div class="button-center">
+        <button mat-raised-button (click)="confirmReservation()">
+          Potvrdi rezervaciju
+        </button>
+    </div>
+  </mat-card-actions>
+</mat-card>

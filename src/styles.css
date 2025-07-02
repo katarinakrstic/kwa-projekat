@@ -1,1 +1,67 @@
-/* You can add global styles to this file, and also import other style files */
+html, body {
+    height: 100%;
+    background-color: #2d292c;
+    color: #f5e0f7;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.container {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.loading {
+    text-align: center;
+    width: 600px;
+    height: 300px;
+    align-items: center;
+}
+
+.error-style {
+    color: red;
+}
+
+.movie-card {
+    max-width: 400px;
+    margin: 5px;
+}
+
+.movie-detail-card {
+    max-width: 800px;
+}
+
+.movie-detail-card img {
+    max-height: 600px;
+}
+
+.button-center {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.wrapper {
+    margin-top: 30px;
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.auth-card {
+    margin-top: 30px;
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.full-width {
+    width: 100%;
+}

@@ -1,0 +1,32 @@
+<div *ngIf="error" class="container">
+    <mat-card class="loading" appearance="outlined">
+        <mat-card-content>
+            <h1>Ups, došlo je do greške!</h1>
+            <p class="error-style">{{error}}</p>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+<div *ngIf="movies" class="container">
+    <mat-card class="movie-card" appearance="outlined" *ngFor="let movie of movies">
+        <img mat-card-image [src]="movie.poster" [alt]="movie.title" />
+        <mat-card-content>
+            <h2>{{movie.title}}</h2>
+            <p>
+                <i class="fa-solid fa-thumbs-up"></i> &nbsp;{{getMovieRatingSummary(movie.title).likes}} &nbsp; | &nbsp;
+                <i class="fa-solid fa-thumbs-down"></i> &nbsp;{{getMovieRatingSummary(movie.title).dislikes}}
+            </p>
+            <p>Početak prikazivanja: {{utils.formatDate(movie.startDate)}}</p>
+        </mat-card-content>
+        <mat-card-actions>
+            <a mat-button [routerLink]="['/details/', movie.movieId]">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i> &nbsp;Detalji o filmu
+            </a>
+            <a mat-button [routerLink]="['/search']">
+                <i class="fa-solid fa-search"></i> &nbsp;Pretraga projekcija filmova
+            </a>
+        </mat-card-actions>
+    </mat-card>
+</div>
+
+<app-loading *ngIf="!movies && !error" />

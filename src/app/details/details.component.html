@@ -1,0 +1,35 @@
+<div *ngIf="error" class="container">
+    <mat-card class="loading" appearance="outlined">
+        <mat-card-content>
+            <h1>Ups, došlo je do greške!</h1>
+            <p class="error-style">{{error}}</p>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+<div *ngIf="movie" class="container">
+  <mat-card class="movie-detail-card">
+    <img mat-card-image [src]="movie.poster" [alt]="movie.title" />
+    <mat-card-content>
+      <h1>{{movie.title}}</h1>
+      <p>
+        <i class="fa-solid fa-thumbs-up"></i> &nbsp;{{getMovieRatingSummary(movie.title).likes}} &nbsp; | &nbsp;
+        <i class="fa-solid fa-thumbs-down"></i> &nbsp;{{getMovieRatingSummary(movie.title).dislikes}}
+      </p>
+      <p><strong>Originalni naziv:</strong> {{movie.originalTitle}}</p>
+      <p><strong>Početak prikazivanja:</strong> {{utils.formatDate(movie.startDate)}}</p>
+      <p><strong>Žanrovi:</strong> {{getGenreNames()}}</p>
+      <p><strong>Opis:</strong> {{movie.description}}</p>
+      <p><strong>Dužina trajanja filma:</strong> {{movie.runTime}} minuta</p>
+      <p><strong>Režiser:</strong> {{movie.director.name}}</p>
+      <p><strong>Glumci:</strong> {{getActorNames()}}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <div class="button-center">
+        <a mat-raised-button [routerLink]="['/search']">
+          <i class="fa-solid fa-search"></i> &nbsp;Pretraga projekcija filmova
+        </a>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>

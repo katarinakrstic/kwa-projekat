@@ -1,0 +1,67 @@
+<div class="wrapper" *ngIf="dataSource">
+    <h1>Pretraga projekcija filmova</h1>
+    <mat-card class="search-card">
+        <mat-card-content>
+            <div class="search-input-row">
+                <mat-form-field class="search-input">
+                    <mat-label>Izaberite naziv filma</mat-label>
+                    <mat-select (selectionChange)="onFilterChange()" [(ngModel)]="selectedTitle">
+                        <mat-option *ngFor="let title of titleList" [value]="title">
+                            {{title}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="search-input">
+                    <mat-label>Izaberite žanr filma</mat-label>
+                    <mat-select (selectionChange)="onFilterChange()" [(ngModel)]="selectedGenre">
+                        <mat-option *ngFor="let genre of movieGenresList" [value]="genre">
+                            {{genre}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="search-input">
+                    <mat-label>Izaberite datum projekcije filma</mat-label>
+                    <mat-select (selectionChange)="onFilterChange()" [(ngModel)]="selectedDate">
+                        <mat-option *ngFor="let date of projectionDateList" [value]="date">
+                            {{date}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <div class="button-center">
+                <button mat-raised-button (click)="doReset()">
+                <i class="fa-solid fa-ban"></i> &nbsp;Resetuj sve kriterijume pretrage
+            </button>
+            </div>
+        </mat-card-actions>
+    </mat-card>
+    <mat-card *ngFor="let projection of filteredProjections" class="projection-card">
+        <mat-card-title>
+            <h3><i class="fa-solid fa-film"></i> &nbsp;{{projection.movie.title}}</h3>
+            <i class="fa-solid fa-thumbs-up"></i> &nbsp;{{getMovieRatingSummary(projection.movie.title).likes}} &nbsp; | &nbsp;
+            <i class="fa-solid fa-thumbs-down"></i> &nbsp;{{getMovieRatingSummary(projection.movie.title).dislikes}}
+        </mat-card-title>
+        <mat-card-subtitle>
+            <br/>
+            <i class="fa-regular fa-calendar"></i> &nbsp;Datum projekcije: {{projection.date}} <br/>
+            <i class="fa-regular fa-clock"></i> &nbsp;Vreme projekcije: {{projection.time}} <br/>
+            <i class="fa-solid fa-clock-rotate-left"></i> &nbsp;Dužina trajanja filma: {{projection.movie.runTime}} minuta
+        </mat-card-subtitle>
+        <mat-card-content>
+            <p>Žanrovi: {{getGenreNames(projection)}}</p>
+            <p>{{projection.movie.shortDescription}}</p>
+        </mat-card-content>
+        <mat-card-actions>
+            <a mat-button [routerLink]="['/details/', projection.movie.movieId]">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i> &nbsp;Detalji o filmu
+            </a>
+            <a mat-button [routerLink]="['/reservation', projection.movie.title, projection.date, projection.time]">
+                <i class="fa-solid fa-cart-shopping"></i> &nbsp;Rezerviši kartu
+            </a>
+        </mat-card-actions>
+    </mat-card>
+</div>
+
+<app-loading *ngIf="!dataSource" />
